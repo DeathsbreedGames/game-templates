@@ -22,6 +22,11 @@ public class Entity extends Sprite {
 	private Vector2 position;
 	private Vector2 velocity;
 
+	/**
+	 * @param img		A texture region which will be drawn on the screen as the entity.
+	 * @param x		The initial X position of the entity.
+	 * @param y		The initial Y position of the entity.
+	 */
 	public Entity(TextureRegion img, float x, float y) {
 		super(img);
 		position = new Vector2(x, y);
@@ -30,6 +35,11 @@ public class Entity extends Sprite {
 		setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 	}
 
+	/**
+	 * @param img		A texture which will be drawn on the screen as the entity.
+	 * @param x		The initial X position of the entity.
+	 * @param y		The initial Y position of the entity.
+	 */
 	public Entity(Texture img, float x, float y) {
 		super(img);
 		position = new Vector2(x, y);
@@ -38,6 +48,10 @@ public class Entity extends Sprite {
 		setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 	}
 
+	/**
+	 * @param batch		The SpriteBatch that will be used to draw the texture to the screen.
+	 * @param delta		The time between the current frame and the last.
+	 */
 	public void render(SpriteBatch batch, float delta) {
 		position.add(velocity.x * delta, velocity.y * delta);
 		setCenter(position.x, position.y);
