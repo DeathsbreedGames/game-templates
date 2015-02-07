@@ -1,27 +1,56 @@
+/**
+ * Copyright (C) 2015 DeathsbreedGames
+ * License: Apache License 2.0
+ */
 package io.github.deathsbreedgames.libgdxtemplate;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.assets.AssetManager;
 
-public class LibGDXTemplate extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+import io.github.deathsbreedgames.libgdxtemplate.screens.*;
+
+/**
+ * The main class of the game.
+ * 
+ * @author Nicolás A. Ortega
+ * @version 15.02.07
+ */
+public class LibGDXTemplate extends Game {
+	private AssetManager manager;
 	
+	// Create:
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		manager = new AssetManager();
+		setScreen(new BaseScreen(manager)); // Replace BaseScreen with your own screen that extends BaseScreen.
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		BaseScreen currentScreen = (BaseScreen)super.getScreen();
+
+		// Update the screen
+		currentScreen.render(Gdx.graphics.getDeltaTime());
+
+		// Switch screen if done
+		if(currentScreen.isDone()) {
+			currentScreen.dispose();
+			if(currentScreen.getNextScreen().equals("BaseScreen")) {
+				setScreen(new BaseScreen(manager));
+			}/* else if(currentScreen.getNextScreen().equals("YOURSCREENNAME")) {
+				setScreen(new *YOURSCREEN*(manager));
+			}*/else {
+				setScreen(new BaseScreen(manager));
+			}
+		}
+	}
+
+	// Dispose:
+	@Override
+	public void dispose() {
+		manager.dispose();
+		super.getScreen().dispose();
+		super.dispose();
 	}
 }
