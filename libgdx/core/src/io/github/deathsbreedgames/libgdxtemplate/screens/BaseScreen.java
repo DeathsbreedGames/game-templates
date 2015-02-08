@@ -1,6 +1,6 @@
 /**
  * Copyright (C) 2015 DeathsbreedGames
- * License: Apache License 2.0
+ * License: MIT
  */
 package io.github.deathsbreedgames.libgdxtemplate.screens;
 
